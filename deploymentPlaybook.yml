@@ -6,7 +6,7 @@
   tasks:
   - name: clone the repo with java code on every worker node
     git: 
-     repo: https://github.com/Sonal0409/DevOpsCodeDemo.git 
+     repo: https://github.com/akshitmittal20/DevOpsCodeDemo.git 
      dest: /tmp/devops-project1
   - name: Build the .war artifact with maven plugin
     command: chdir=/tmp/devops-project1 mvn package
