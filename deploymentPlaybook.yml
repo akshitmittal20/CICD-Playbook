@@ -1,0 +1,21 @@
+---
+- name: CLone, Build , Deploy the code
+  hosts: webserver
+  become: true
+  become_user: root
+  tasks:
+  - name: clone the repo with java code on every worker node
+    git: 
+     repo: https://github.com/Sonal0409/DevOpsCodeDemo.git 
+     dest: /tmp/devops-project1
+  - name: Build the .war artifact with maven plugin
+    command: chdir=/tmp/devops-project1 mvn package
+  - name: copy the generated .war file into the folder where dockerfile is present
+    copy:
+     src: /tmp/devops-project1/target/addressbook.war
+     dest: /tmp/devops-project1
+     remote_src: yes
+  - name: Build the Docker file to create docker image
+    command: chdir=/tmp/devops-project1 docker build -t myprojectimage .
+  - name: Run the image to deploy the application on tomcat container
+    command: docker run -d -P myprojectimage

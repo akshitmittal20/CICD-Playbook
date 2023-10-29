@@ -1,0 +1,25 @@
+---
+- name: Playbook to install Maven and Docker
+  hosts: webserver
+  become: true
+  become_user: root
+  tasks:
+  - name: update cache
+    apt:
+     update_cache: yes
+  - name: install Git
+    package:
+     name: git
+     state: present
+  - name: task to install maven
+    package:
+     name: maven
+     state: present
+  - name: task to install  Docker
+    package:
+     name: docker.io
+     state: present
+  - name: task to start docker
+    service:
+     name: docker
+     state: started
