@@ -5,8 +5,7 @@
   become_user: root
   tasks:
   - name: update cache
-    apt:
-     update_cache: yes
+    command: sudo apt-get update
   - name: install Git
     package:
      name: git
